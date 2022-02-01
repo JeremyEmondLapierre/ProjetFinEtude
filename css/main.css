@@ -1,0 +1,17 @@
+*{
+    margin: 0;
+}
+
+img{
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    height: 65px;
+    width: 80px;
+    cursor: pointer;
+    filter: brightness(50%);
+}
+
+.FixedButtonAlume{
+    filter: none;
+}
