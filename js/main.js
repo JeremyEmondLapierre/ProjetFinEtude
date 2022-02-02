@@ -2,13 +2,13 @@
 const scene = new THREE.Scene();
 
 //Créer une caméra 
-const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
+const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 10000 );
 
 //Position de la caméra (On peut la changer)
 camera.position.set(0, 0, 15);
 
 //Renderer WebGL
-const renderer = new THREE.WebGLRenderer({ antialias: false,alpha:true });
+const renderer = new THREE.WebGLRenderer();
 
 //Appliquer au renderer la taille de la fenêtre
 renderer.setSize( window.innerWidth, window.innerHeight );
@@ -19,27 +19,55 @@ document.body.appendChild( renderer.domElement );
 //Render un objet qui est en .gltf
 const loader = new THREE.GLTFLoader();
 
-//**************************************CANARD******************************************/
+
+//**************************************CANARD*****************************************//
 loader.load('model/Duck/scene.gltf', result =>{
     modelCanard = result.scene.children[0];
-    modelCanard.position.set(0,5,0);
+    modelCanard.position.set(-3,1.5,0);
     scene.add(modelCanard);
 });
 
-//**************************************GUN******************************************/
+//**************************************GUN******************************************//
 loader.load('model/Gun/scene.gltf', result =>{
     modelGun = result.scene.children[0];
-    modelGun.position.set(0,8,0);
+    modelGun.position.set(3,2,0);
     scene.add(modelGun);
 });
 
+/*Skybox*/
+let materielArray = [];
+let texture_ft = new THREE.TextureLoader().load('media/skybox/arid2_ft.jpg');
+let texture_bk = new THREE.TextureLoader().load('media/skybox/arid2_bk.jpg');
+let texture_up = new THREE.TextureLoader().load('media/skybox/arid2_up.jpg');
+let texture_dn = new THREE.TextureLoader().load('media/skybox/arid2_dn.jpg');
+let texture_rt = new THREE.TextureLoader().load('media/skybox/arid2_rt.jpg');
+let texture_lf = new THREE.TextureLoader().load('media/skybox/arid2_lf.jpg');
+
+materielArray.push(new THREE.MeshBasicMaterial({map: texture_ft}));
+materielArray.push(new THREE.MeshBasicMaterial({map: texture_bk}));
+materielArray.push(new THREE.MeshBasicMaterial({map: texture_up}));
+materielArray.push(new THREE.MeshBasicMaterial({map: texture_dn}));
+materielArray.push(new THREE.MeshBasicMaterial({map: texture_rt}));
+materielArray.push(new THREE.MeshBasicMaterial({map: texture_lf}));
+
+materielArray[0].side = THREE.DoubleSide;
+for(let i=0; i<6; i++)
+    materielArray[i].side = THREE.DoubleSide;
+
+
+let skyboxGeo = new THREE.BoxGeometry(1000,1000,1000);
+let skybox = new THREE.Mesh(skyboxGeo, materielArray);
+scene.add(skybox);
+
+
 
 //Lumière!
-const lumiere = new THREE.HemisphereLight(0xffeeb1, 0x080820, 4);
+const lumiere = new THREE.HemisphereLight( 0xffeeb1, 0x080820, 4 );
 scene.add(lumiere);
 
 //Controle de la souris et des flèches
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.addEventListener('change', renderer);
 controls.update();
 
 //****************************************Créer un cube!*******************************************************
@@ -66,11 +94,18 @@ scene.add( floor );
 //Fonction pour animer le cube
 function animate() {
     requestAnimationFrame( animate );
+    //Faire rotationer le torus
     torus.rotation.x += 0.008;
     torus.rotation.y += 0.008;
-    floor.rotation.z += 0.008;
-    modelGun.rotation.z += 0.05;
-    modelCanard.rotation.z += 0.05;
+    if(typeof modelGun != "undefined"){
+        //Faire rotationer le gun
+        modelGun.rotation.z += 0.05;
+    }
+    if(typeof modelCanard != "undefined"){
+        //Faire rotationer le canard
+        modelCanard.rotation.z += 0.05;
+    }
+
     //Re-render la scène à chaque fois pour voir les modifs
     renderer.render( scene, camera );
     controls.update();
