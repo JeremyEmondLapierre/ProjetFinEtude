@@ -124,7 +124,6 @@ function animate() {
 
     //Re-render la scène à chaque fois pour voir les modifs
     renderer.render( scene, camera );
-    controls.update();
 };
 //Appeler la fonction
 animate();
