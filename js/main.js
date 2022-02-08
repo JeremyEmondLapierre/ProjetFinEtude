@@ -36,12 +36,12 @@ loader.load('model/Gun/scene.gltf', result =>{
 
 /*Skybox*/
 let materielArray = [];
-let texture_ft = new THREE.TextureLoader().load('media/skybox/arid2_ft.jpg');
-let texture_bk = new THREE.TextureLoader().load('media/skybox/arid2_bk.jpg');
-let texture_up = new THREE.TextureLoader().load('media/skybox/arid2_up.jpg');
-let texture_dn = new THREE.TextureLoader().load('media/skybox/arid2_dn.jpg');
-let texture_rt = new THREE.TextureLoader().load('media/skybox/arid2_rt.jpg');
-let texture_lf = new THREE.TextureLoader().load('media/skybox/arid2_lf.jpg');
+let texture_ft = new THREE.TextureLoader().load('media/skybox/WeltraumR.png');
+let texture_bk = new THREE.TextureLoader().load('media/skybox/WeltraumL.png');
+let texture_up = new THREE.TextureLoader().load('media/skybox/WeltraumO.png');
+let texture_dn = new THREE.TextureLoader().load('media/skybox/WeltraumU.png');
+let texture_rt = new THREE.TextureLoader().load('media/skybox/Weltraum.png');
+let texture_lf = new THREE.TextureLoader().load('media/skybox/WeltraumH.png');
 
 materielArray.push(new THREE.MeshBasicMaterial({map: texture_ft}));
 materielArray.push(new THREE.MeshBasicMaterial({map: texture_bk}));
@@ -65,30 +65,25 @@ const lumiere = new THREE.HemisphereLight( 0xffeeb1, 0x080820, 4 );
 scene.add(lumiere);
 
 //Controle de la souris et des flèches
-//const controls = new THREE.OrbitControls(camera, renderer.domElement);
 const controls = new THREE.PointerLockControls(camera, renderer.domElement);
-//controls.addEventListener('change', renderer);
-//controls.update();
-var xSpeed = 1;
-var ySpeed = 1;
-
+//Le mouvement pour l'instant ne change pas selon la direction que l'on regarde, corriger cela!
+//Vidéo Yt en espagnol qui pourrait m'aider : https://www.youtube.com/watch?v=b7MQSqU67Uo&ab_channel=MonkeyWit
+let vitesseX = 2;
+let vitesseZ = 2;
 document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event) {
     var keyCode = event.which;
     if (keyCode == 87) {
-        camera.position.z -= ySpeed;
-        cube.position.z -= ySpeed;
+        camera.position.z -= vitesseZ;
     } else if (keyCode == 83) {
-        camera.position.z += ySpeed;
-        cube.position.z += ySpeed;
-    }else if (keyCode == 65) {
-        camera.position.x -= xSpeed;
-        cube.position.x -= xSpeed;
+        camera.position.z += vitesseZ;
+    } else if (keyCode == 65) {
+        camera.position.x -= vitesseX;
     } else if (keyCode == 68) {
-        camera.position.x += xSpeed;
-        cube.position.x += xSpeed;
+        camera.position.x += vitesseX;
     }
 };
+
 
 //****************************************Créer un cube!*******************************************************
 //Module de geometry pour un cube
@@ -124,6 +119,9 @@ function animate() {
 
     //Re-render la scène à chaque fois pour voir les modifs
     renderer.render( scene, camera );
+
+
+
 };
 //Appeler la fonction
 animate();
@@ -135,6 +133,8 @@ let sonActif = false;
 const bouton = document.querySelector("#fixedbutton");
 //Si on appuie dessus...
 bouton.addEventListener("click", function(){
+    //Lock les contrôles
+    controls.lock();
     if(sonActif == false){
         //On le met en couleur!
         bouton.classList.toggle("FixedButtonAlume");
