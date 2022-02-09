@@ -2,6 +2,10 @@
     margin: 0;
 }
 
+html,body{
+    height: 100vh;
+}
+
 img{
     position: fixed;
     bottom: 0px;
@@ -12,14 +16,18 @@ img{
     filter: brightness(50%);
 }
 
-canvas{
-    
+.container{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
 }
 
 h1{
-    position: absolute;
-    left: 40%;
+    font-size: 2rem;
+    text-transform: uppercase;
     color: white;
+    display: grid;
+    place-items: center;
 }
 
 .FixedButtonAlume{

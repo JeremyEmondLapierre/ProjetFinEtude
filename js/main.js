@@ -5,16 +5,20 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 10000 );
 
 //Position de la caméra (On peut la changer)
-camera.position.set(0, 2, 5);
+camera.position.set(0, 2, 95);
+
+// Canvas
+const canvas = document.querySelector('canvas.webgl');
 
 //Renderer WebGL
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({
+    canvas: canvas
+});
 
 //Appliquer au renderer la taille de la fenêtre
 renderer.setSize( window.innerWidth, window.innerHeight );
 
-//Mettre le renderer dans la scène / l'inclure
-document.body.appendChild( renderer.domElement );
+
 
 //Render un objet qui est en .gltf
 const loader = new THREE.GLTFLoader();
@@ -32,6 +36,13 @@ loader.load('model/Gun/scene.gltf', result =>{
     modelGun = result.scene.children[0];
     modelGun.position.set(3,2,0);
     scene.add(modelGun);
+});
+
+//***********************************BUILDING***************************************//
+loader.load('model/building/scene.gltf', result =>{
+    modelBuilding = result.scene.children[0];
+    modelBuilding.position.set(100,-0.5, -50);
+    scene.add(modelBuilding);
 });
 
 /*Skybox*/
@@ -70,19 +81,68 @@ const controls = new THREE.PointerLockControls(camera, renderer.domElement);
 //Vidéo Yt en espagnol qui pourrait m'aider : https://www.youtube.com/watch?v=b7MQSqU67Uo&ab_channel=MonkeyWit
 let vitesseX = 2;
 let vitesseZ = 2;
+
+let directionX = 0, directionZ = 0;
+let tempsI, tempsF, vel, delta;
+tempsI = Date.now();
+vel = 30;
+
+var axe = new THREE.Vector3();
+
 document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event) {
     var keyCode = event.which;
+    //W
     if (keyCode == 87) {
-        camera.position.z -= vitesseZ;
-    } else if (keyCode == 83) {
-        camera.position.z += vitesseZ;
-    } else if (keyCode == 65) {
-        camera.position.x -= vitesseX;
-    } else if (keyCode == 68) {
-        camera.position.x += vitesseX;
+        directionZ = 1;
+        //camera.position.z -= vitesseZ;
+    }
+    //S
+    else if (keyCode == 83) {
+        directionZ = -1;
+        //camera.position.z += vitesseZ;
+    }
+    //A
+    else if (keyCode == 65) {
+        directionX = -1;
+        //camera.position.x -= vitesseX;
+    }
+    //D
+    else if (keyCode == 68) {
+        directionX= 1;
+        //camera.position.x += vitesseX;
+    }
+    //Space
+    else if (keyCode == 32) {
+        axe.y += 10;
     }
 };
+
+document.addEventListener("keyup", onDocumentKeyUp, false);
+function onDocumentKeyUp(event) {
+    var keyCode = event.which;
+    //W
+    if (keyCode == 87) {
+        directionZ = 0;
+    }
+    //S
+    else if (keyCode == 83) {
+        directionZ = 0;
+    }
+    //A
+    else if (keyCode == 65) {
+        directionX = 0;
+    }
+    //D
+    else if (keyCode == 68) {
+        directionX= 0;
+    }
+
+
+};
+
+
+
 
 
 //****************************************Créer un cube!*******************************************************
@@ -99,11 +159,20 @@ cube.position.set(0,1,0)
 
 /* Floor  */    
 let geometrySol = new THREE.PlaneGeometry( 100, 100, 50, 50 );
-let materialSol = new THREE.MeshBasicMaterial({ color: "black"})
+let materialSol = new THREE.MeshBasicMaterial({ color: "blue"})
 let floor = new THREE.Mesh( geometrySol, materialSol );
 floor.rotateX(-Math.PI / 2);
 scene.add( floor );
 
+let geometryCouloir = new THREE.PlaneGeometry( 10, 50);
+let materialCouloir = new THREE.MeshBasicMaterial({ color: "red"})
+let couloir = new THREE.Mesh( geometryCouloir, materialCouloir );
+couloir.rotateX(-Math.PI / 2);
+couloir.position.x = 0;
+couloir.position.z = 75;
+scene.add(couloir);
+
+tempsF = Date.now();
 
 //Fonction pour animer le cube
 function animate() {
@@ -116,6 +185,18 @@ function animate() {
         //Faire rotationer le canard
         modelCanard.rotation.z += 0.05;
     }
+
+    console.log(camera.position);
+
+
+
+    delta = (tempsF - tempsI)/1000;
+
+    let xDis = directionX * vel * delta;
+    let zDis = directionZ * vel * delta;
+
+    controls.moveRight(xDis);
+    controls.moveForward(zDis);
 
     //Re-render la scène à chaque fois pour voir les modifs
     renderer.render( scene, camera );
