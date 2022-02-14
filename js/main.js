@@ -186,8 +186,6 @@ function animate() {
         modelCanard.rotation.z += 0.05;
     }
 
-    console.log(camera.position);
-
 
 
     delta = (tempsF - tempsI)/1000;

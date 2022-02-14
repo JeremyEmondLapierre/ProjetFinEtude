@@ -1,0 +1,110 @@
+@font-face {
+    font-family: DancingMinotaur;
+    src: url(../media/font/DancingMinotaur.ttf);
+}
+
+*{
+    margin: 0;
+}
+
+html,body{
+    overflow-x: hidden;
+    background-color: black;
+    background-image: url("../media/img/smoke.png");
+    background-size: cover;
+}
+
+html{
+    height: 205vh;
+}
+.container{
+    position: absolute;
+}
+.presentation{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+h1,h2{
+    font-family: DancingMinotaur, sans-serif;
+    font-weight: 100;
+    
+}
+.titre{
+    font-size: 3rem;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-shadow: 1px 10px #3f3c3c;
+}
+.titreComplet{
+    padding-top: 50px ;
+    display: flex;
+    align-items: center;
+}
+hr{
+    width: 25vw;
+}
+h2{
+    font-size: 2rem;
+    color: #676767;
+    margin-top: 15px;
+}
+.textes{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.textes>div{
+    border: 1px solid white;
+    width: 50%;
+    margin-bottom: 70px;
+}
+
+.boite{
+    padding: 60px;
+    color: white;
+}
+
+.boite>p{
+    font-size: 1.2rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.boite>h3{
+    font-family: DancingMinotaur, sans-serif;
+    font-weight: 100;
+    font-size: 2rem;
+}
+
+button{
+    background-color: transparent;
+    color: white;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    border-radius: 40px;
+    border: 1px solid white;
+    padding: 20px;
+    cursor: pointer;
+}
+
+button>img{
+    width: 50px;
+    margin-left: 10px;
+}
+
+a{
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    
+}
+
+canvas{
+   
+    height: 205vh !important;
+}
