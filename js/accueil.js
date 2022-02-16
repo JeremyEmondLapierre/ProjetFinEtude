@@ -2,7 +2,7 @@
 const scene = new THREE.Scene();
 
 //Créer une caméra 
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight/2.2, 0.1, 10000 );
+const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 10000 );
 scene.add( camera );
 
 //Position de la caméra (On peut la changer)
@@ -19,18 +19,20 @@ document.body.appendChild( renderer.domElement );
 renderer.setSize( window.innerWidth, window.innerHeight );
 
 
-let geometryCube = new THREE.BoxGeometry();
-let materialCube = new THREE.MeshStandardMaterial({});
-let cube = new THREE.Mesh( geometryCube, materialCube );
-cube.position.set(0,1,0)
-cube.rotation.set(10,0,0);
-scene.add(cube);
+let geometryCube = new THREE.BoxGeometry(2,2,2);
+let coteCube = new THREE.EdgesGeometry(geometryCube);
+const cube = new THREE.LineSegments( coteCube, new THREE.LineBasicMaterial( { color: 0xffffff } ) );
+scene.add( cube );
+cube.rotation.set(0.08,0,0);
+cube.position.set(0,-1,0);
 
-let geometryChaine = new THREE.BoxGeometry(0.05,1.1,0.5);
-let materialChaine = new THREE.MeshBasicMaterial({color : "grey"});
-let chaine = new THREE.Mesh( geometryChaine, materialChaine );
+
+let geometryChaine = new THREE.BoxGeometry(0.05,1.7,0.05);
+let coteChaine = new THREE.EdgesGeometry(geometryChaine);
+
+const chaine = new THREE.LineSegments( coteChaine, new THREE.LineBasicMaterial( { color: 0xffffff } ) );
 scene.add(chaine);
-chaine.position.set(0,2,0);
+chaine.position.set(0,0.8,0);
 
 const geometry = new THREE.TorusKnotGeometry( 0.4, 0.10, 100 );
 const material = new THREE.MeshNormalMaterial();
@@ -53,8 +55,11 @@ scene.add(lumiere);
 camera.position.z = 5;
 
 function animate() {
+    requestAnimationFrame( animate );
     //Re-render la scène à chaque fois pour voir les modifs
     renderer.render( scene, camera );
+    chaine.rotation.y += 0.02;
+    cube.rotation.y += 0.02
 };
 
 //Appeler la fonction

@@ -225,6 +225,7 @@ function animate() {
 
 
 
+
     delta = (tempsF - tempsI)/200;
 
     let xDis = directionX * vel * delta;
