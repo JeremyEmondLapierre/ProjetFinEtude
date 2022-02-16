@@ -38,11 +38,20 @@ loader.load('model/Gun/scene.gltf', result =>{
     scene.add(modelGun);
 });
 
-//***********************************BUILDING***************************************//
-loader.load('model/building/scene.gltf', result =>{
-    modelBuilding = result.scene.children[0];
-    modelBuilding.position.set(100,-0.5, -50);
-    scene.add(modelBuilding);
+//***********************************Couloir***************************************//
+loader.load('model/corridor/scene.gltf', result =>{
+    corridor = result.scene.children[0];
+    corridor.position.set(0,11, 88.5);
+    corridor.scale.set(0.08,0.08,0.08);
+    scene.add(corridor);
+});
+
+//***********************************Planete***************************************//
+loader.load('model/planete/scene.gltf', result =>{
+    planete = result.scene.children[0];
+    planete.position.set(-90,11, -90);
+    planete.scale.set(50,50,50);
+    scene.add(planete);
 });
 
 /*Skybox*/
@@ -70,6 +79,22 @@ let skybox = new THREE.Mesh(skyboxGeo, materielArray);
 scene.add(skybox);
 
 
+//Particules
+const particulesGeometrie = new THREE.BufferGeometry;
+const particulesCompte = 1000;
+const posArray = new Float32Array(particulesCompte * 3);
+
+for(let i = 0; i < particulesCompte * 3; i++){
+    posArray[i] = (Math.random() - 0.5) * 500;
+}
+//Mettre la valeur prise en haut avec la loop dans l'attribut de position
+particulesGeometrie.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+//Matériel des particules
+const materielParticule = new THREE.PointsMaterial({size : 0.005});
+//Mesh des particules
+const particulesMesh = new THREE.Points(particulesGeometrie, materielParticule);
+//Ajout à la scène les particules
+scene.add(particulesMesh);
 
 //Lumière!
 const lumiere = new THREE.HemisphereLight( 0xffeeb1, 0x080820, 4 );
@@ -157,20 +182,24 @@ scene.add( cube );
 //Ajuster la posistion du torus
 cube.position.set(0,1,0)
 
-/* Floor  */    
+/* Floor  */
+const texturePlancher = new THREE.TextureLoader().load("../media/img/lunar.png");    
 let geometrySol = new THREE.PlaneGeometry( 100, 100, 50, 50 );
-let materialSol = new THREE.MeshBasicMaterial({ color: "blue"})
+let materialSol = new THREE.MeshBasicMaterial({ map: texturePlancher})
 let floor = new THREE.Mesh( geometrySol, materialSol );
 floor.rotateX(-Math.PI / 2);
 scene.add( floor );
 
-let geometryCouloir = new THREE.PlaneGeometry( 10, 50);
-let materialCouloir = new THREE.MeshBasicMaterial({ color: "red"})
-let couloir = new THREE.Mesh( geometryCouloir, materialCouloir );
-couloir.rotateX(-Math.PI / 2);
-couloir.position.x = 0;
-couloir.position.z = 75;
-scene.add(couloir);
+
+
+
+let materialMur = new THREE.MeshBasicMaterial({color: "grey"});
+
+//Mur derriere couloir
+let geometryMur2 = new THREE.BoxGeometry(30,24,0.2);
+let Mur2 = new THREE.Mesh( geometryMur2, materialMur );
+Mur2.position.set(0,11.4,123.1);
+scene.add( Mur2 );
 
 tempsF = Date.now();
 
@@ -186,9 +215,17 @@ function animate() {
         modelCanard.rotation.z += 0.05;
     }
 
+    if(typeof planete != "undefined"){
+        //Faire rotationer le canard
+        planete.rotation.y += 0.005;
+    }
+    particulesMesh.rotation.x += 0.0005;
+    
+    particulesMesh.rotation.z += 0.0005;
 
 
-    delta = (tempsF - tempsI)/1000;
+
+    delta = (tempsF - tempsI)/200;
 
     let xDis = directionX * vel * delta;
     let zDis = directionZ * vel * delta;
