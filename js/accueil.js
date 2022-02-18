@@ -2,7 +2,7 @@
 const scene = new THREE.Scene();
 
 //Créer une caméra 
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 10000 );
+const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight/2.2, 0.1, 10000 );
 scene.add( camera );
 
 //Position de la caméra (On peut la changer)
