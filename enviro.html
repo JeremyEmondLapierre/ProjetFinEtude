@@ -7,10 +7,15 @@
 		<link id="favicon" rel="shortcut icon" type="img/png" href="media/img/favicon.png" />
 	</head>
 	<body>
-		
 		<div class="container">
-			<h1>Premier prototype avec Three.js</h1>
-			<img src="media/img/sound.png" id="fixedbutton" >
+			<div class="chargement">
+				<div class="pourcentage">0%</div>
+				<div class="barProgres">
+					<div class="progres"></div>
+				</div>
+				<button class="button-49" onclick="afficherEnviro()">Commencer!</button>
+			</div>
+			
 		</div>
 		<canvas class="webgl"></canvas>
 	</body>

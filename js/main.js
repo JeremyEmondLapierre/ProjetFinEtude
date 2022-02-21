@@ -243,22 +243,33 @@ function animate() {
 //Appeler la fonction
 animate();
 
-//Musique!
-//Variable qui permet de lancer le son juste une fois
-let sonActif = false;
-//Trouver le bouton dans la page
-const bouton = document.querySelector("#fixedbutton");
-//Si on appuie dessus...
-bouton.addEventListener("click", function(){
-    //Lock les contrôles
-    controls.lock();
-    if(sonActif == false){
-        //On le met en couleur!
-        bouton.classList.toggle("FixedButtonAlume");
-        //On joue le son
-        let audio = new Audio('media/audio/PoliticsViolence.mp3');
-        audio.volume = 0.2;
-        audio.play();
-        sonActif = true;
+
+
+
+//Bar de progrès
+let pourcentage = document.querySelector('.pourcentage');
+let progres = document.querySelector('.progres');
+let boutton = document.querySelector('.button-49');
+let compteur = 4;
+let per = 16;
+let chargement = setInterval(fonctionChargement, 50);
+function fonctionChargement(){
+    if(compteur == 100 && per == 400){
+        clearInterval(chargement);
+        boutton.style.display = 'block';
+    }else{
+        per = per + 4;
+        compteur = compteur + 1;
+        progres.style.width = per + 'px';
+        pourcentage.textContent = compteur + '%';
     }
-});
+}
+
+let container = document.querySelector('.container');
+function afficherEnviro(){
+    controls.lock();
+    container.style.display = "none";
+    let audio = new Audio('media/audio/Float.mp3');
+    audio.volume = 0.2;
+    audio.play();
+}

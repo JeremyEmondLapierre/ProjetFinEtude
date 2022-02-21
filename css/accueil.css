@@ -17,6 +17,7 @@ html,body{
 body{
     background-image: url("../media/img/smoke.png");
     background-size: cover;
+    height: 220vh;
 }
 
 html{
@@ -69,8 +70,13 @@ h2{
 }
 
 .boite{
-    padding: 60px;
+    padding-top: 60px;
+    padding-left: 60px;
+    padding-right: 60px;
     color: white;
+    display: flex;
+    flex-direction: column;
+    
 }
 
 .boite>p{
@@ -111,6 +117,6 @@ a{
     text-decoration: none;
 }
 
-canvas{
-    height: 205vh !important;
+.canvaBoite1, .canvaBoite2, .canvaBoite3{
+    margin-left: 40%;
 }
