@@ -1,3 +1,10 @@
+/********************************************* */
+/********************************************* */
+/*    Script qui est utilisé dans l'accueil    */
+/*        @Jérémy Emond-Lapierre - 2022        */
+/********************************************* */
+/********************************************* */
+
 //Déclarer la constante de la scène principale
 const scene = new THREE.Scene();
 
@@ -18,7 +25,7 @@ let camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHe
 //Position de la caméra (On peut la changer)
 camera.position.set(0, 0, 5);
 
-// Canvas
+// Créer et configurer les 4 canvas présents sur la page
 const canvas1 = document.querySelector('canvas.canvaEntete');
 const canvas2 = document.querySelector('canvas.canvaBoite1');
 const canvas3 = document.querySelector('canvas.canvaBoite2');
@@ -32,15 +39,29 @@ renderer2.setSize( window.innerWidth/9, window.innerHeight/9);
 renderer3.setSize( window.innerWidth/9, window.innerHeight/9);
 renderer4.setSize( window.innerWidth/9, window.innerHeight/9);
 
+/* Quelques définitions avant de commencer... */
+// result.scene.children[0] => Sert à mettre comme enfant de la scène l'objet
+// position.set(x,y,z) => sa position
+// scale.set(x,y,z) => Le redimensionner
+// rotation.set => changer la rotation de l'objet
+// .add => (l'ajouter à la scène)
+
 /*Premier gros cube avec la chaine dans le premier 100vh */
+
+//Créer sa géométrie (forme)
 let geometryChaine = new THREE.BoxGeometry(0.05,1.7,0.05);
+//Définir les arêtes
 let coteChaine = new THREE.EdgesGeometry(geometryChaine);
+//Créer les segments de la chaine à l'aide des arêtes
 const chaine = new THREE.LineSegments( coteChaine, new THREE.LineBasicMaterial( { color: 0xffffff } ) );
 scene.add(chaine);
 chaine.position.set(0,2.2,0);
 
+//Créer sa géométrie (forme)
 let geometryCube = new THREE.BoxGeometry(2,2,2);
+//Définir les arêtes
 let coteCube = new THREE.EdgesGeometry(geometryCube);
+//Créer les segments de la chaine à l'aide des arêtes
 const cube = new THREE.LineSegments( coteCube, new THREE.LineBasicMaterial( { color: 0xffffff } ) );
 scene.add( cube );
 cube.rotation.set(0.5,0,0);
@@ -63,23 +84,20 @@ const geometryTorus = new THREE.TorusGeometry( 1.4, 0.5, 16, 100 );
 const torus = new THREE.Mesh( geometryTorus, materialCube2 );
 scene4.add( torus );
 
-
-
-
-
-
-//Lumière!
+//Lumière présente dans toutes les scènes
 const lumiere = new THREE.AmbientLight(0x404040);
 scene.add(lumiere);
 
 
-function animate() {
-    requestAnimationFrame( animate );
+
+function update() {
+    requestAnimationFrame( update );
     //Re-render la scène à chaque fois pour voir les modifs
     renderer.render( scene, camera );
     renderer2.render( scene2, camera );
     renderer3.render( scene3, camera );
     renderer4.render( scene4, camera );
+    //Incrémenter la rotation pour créer une rotation sur les objets
     chaine.rotation.y += 0.02;
     cube.rotation.y += 0.02;
     cube2.rotation.y += 0.02
@@ -90,5 +108,12 @@ function animate() {
     torus.rotation.x += 0.02
 };
 
-//Appeler la fonction
-animate();
+//Appeler la fonction à nouveau
+update();
+
+//S'assurer que si on change la taille de la fenêtre, le ratio du canva se conserve
+window.addEventListener("resize", () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}, false);
