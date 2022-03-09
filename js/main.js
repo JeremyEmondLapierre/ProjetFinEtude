@@ -260,9 +260,6 @@ scene.add(lumiere);
 
 //Controle de la souris et des flèches
 const controls = new THREE.PointerLockControls(camera, renderer.domElement);
-//Définir la vitesse
-let vitesseX = 2;
-let vitesseZ = 2;
 
 //Deplacement de base dans la direction X et Z
 let directionX = 0, directionZ = 0;
@@ -406,7 +403,7 @@ function update() {
         camera.position.z = -59.5;
     }
     
-    //Déplacement basé sur l'équation (Vf - Vi) / (Tf / Ti)
+    
     //Aller calculer le différentiel de temps entre le temps initial du déplacement au temps final
     delta = (tempsF - tempsI)/2000;
 
