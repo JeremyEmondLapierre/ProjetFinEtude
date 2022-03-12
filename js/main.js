@@ -49,7 +49,7 @@ loader.load('model/planete/scene.gltf', result =>{
 
 // Tous les modèles qui font partis du biome neige //
 /* l'ours */
-loader.load('model/oursHache/scene.gltf', result =>{
+loader.load('model/hiver/oursHache/scene.gltf', result =>{
     oursHache = result.scene.children[0];
     oursHache.position.set(-20,1.7, 50);
     oursHache.scale.set(0.5,0.5,0.5);
@@ -57,35 +57,35 @@ loader.load('model/oursHache/scene.gltf', result =>{
     scene.add(oursHache);
 });
 /* Les arbres avec de la neige */
-loader.load('model/arbreNeige/scene.gltf', result =>{
+loader.load('model/hiver/arbreNeige/scene.gltf', result =>{
     arbreNeige = result.scene.children[0];
     arbreNeige.position.set(-50,0, 50);
     arbreNeige.scale.set(10,10,10);
     scene.add(arbreNeige);
 });
 
-loader.load('model/arbreNeige/scene.gltf', result =>{
+loader.load('model/hiver/arbreNeige/scene.gltf', result =>{
     arbreNeige2 = result.scene.children[0];
     arbreNeige2.position.set(-30,0, 35);
     arbreNeige2.scale.set(10,10,10);
     scene.add(arbreNeige2);
 });
 
-loader.load('model/arbreNeige/scene.gltf', result =>{
+loader.load('model/hiver/arbreNeige/scene.gltf', result =>{
     arbreNeige3 = result.scene.children[0];
     arbreNeige3.position.set(-42,0, 20);
     arbreNeige3.scale.set(10,10,10);
     scene.add(arbreNeige3);
 });
 /* L'ile de neige qui flotte */
-loader.load('model/ileNeige/scene.gltf', result =>{
+loader.load('model/hiver/ileNeige/scene.gltf', result =>{
     ileNeige = result.scene.children[0];
     ileNeige.position.set(-90,5, 30);
     ileNeige.scale.set(0.02,0.02,0.02);
     scene.add(ileNeige);
 });
 /* Le bigfoot */
-loader.load('model/bigfoot/scene.gltf', result =>{
+loader.load('model/hiver/bigfoot/scene.gltf', result =>{
     bigfoot = result.scene.children[0];
     bigfoot.position.set(-40,0, 42);
     bigfoot.scale.set(4,4,4);
@@ -93,7 +93,7 @@ loader.load('model/bigfoot/scene.gltf', result =>{
     scene.add(bigfoot);
 });
 /* Le feu de camp avec le père-noel */
-loader.load('model/feuCamp/scene.gltf', result =>{
+loader.load('model/hiver/feuCamp/scene.gltf', result =>{
     feuCamp = result.scene.children[0];
     feuCamp.position.set(-10,0, 10);
     feuCamp.scale.set(2,2,2);
@@ -101,21 +101,21 @@ loader.load('model/feuCamp/scene.gltf', result =>{
     scene.add(feuCamp);
 });
 /* Le sol de neige */
-loader.load('model/solNeige/scene.gltf', result =>{
+loader.load('model/hiver/solNeige/scene.gltf', result =>{
     solNeige = result.scene.children[0];
     solNeige.position.set(-18.7,0.001, 18.7);
     solNeige.scale.set(0.14,0.14,0.14);
     scene.add(solNeige);
 });
 /* Les igloos */
-loader.load('model/igloo/scene.gltf', result =>{
+loader.load('model/hiver/igloo/scene.gltf', result =>{
     igloo = result.scene.children[0];
     igloo.position.set(-18.7,0, 20);
     igloo.scale.set(3,3,3);
     igloo.rotation.z = -180;
     scene.add(igloo);
 });
-loader.load('model/igloo/scene.gltf', result =>{
+loader.load('model/hiver/igloo/scene.gltf', result =>{
     igloo = result.scene.children[0];
     igloo.position.set(-18.7,0, 40);
     igloo.scale.set(3,3,3);
@@ -123,24 +123,24 @@ loader.load('model/igloo/scene.gltf', result =>{
     scene.add(igloo);
 });
 /* Le flocon en haut de la scène */
-loader.load('model/flocon/scene.gltf', result =>{
+loader.load('model/hiver/flocon/scene.gltf', result =>{
     flocon = result.scene.children[0];
     flocon.position.set(-30,30, 30);
     flocon.scale.set(2,2,2);
     scene.add(flocon);
 });
 
-// Tous les modèles qui font partis du biome neige //
+// Tous les modèles qui font partis du biome ete //
 
-/* La plage en tier */
-loader.load('model/plage/scene.gltf', result =>{
+/* La plage entiere */
+loader.load('model/ete/plage/scene.gltf', result =>{
     plage = result.scene.children[0];
     plage.position.set(-14.2,-36, -3);
     plage.scale.set(0.46,0.46,0.46);
     scene.add(plage);
 });
 /* Le soleil en haut de la scène */
-loader.load('model/soleil/scene.gltf', result =>{
+loader.load('model/ete/soleil/scene.gltf', result =>{
     soleil = result.scene.children[0];
     soleil.position.set(30,30, 30);
     soleil.scale.set(0.05,0.05,0.05);
@@ -150,7 +150,7 @@ loader.load('model/soleil/scene.gltf', result =>{
 
 // Tous les modèles qui font partis du biome printemps //
 //Montagne + lac + maison
-loader.load('model/printemps/scene.gltf', result =>{
+loader.load('model/printemps/printempsScene/scene.gltf', result =>{
     printemps = result.scene.children[0];
     printemps.position.set(-35,-19.5, -36.5);
     printemps.rotation.z = 5.5;
@@ -158,7 +158,7 @@ loader.load('model/printemps/scene.gltf', result =>{
     scene.add(printemps);
 });
 // Fleur en haut de la scène
-loader.load('model/fleur/scene.gltf', result =>{
+loader.load('model/printemps/fleur/scene.gltf', result =>{
     fleur = result.scene.children[0];
     fleur.position.set(-35,30, -45);
     fleur.scale.set(4,4,4);
@@ -167,7 +167,7 @@ loader.load('model/fleur/scene.gltf', result =>{
 
 // Tous les modèles qui font partis du biome automne //
 //Maison classique                                
-loader.load('model/maisonAutomne/scene.gltf', result =>{
+loader.load('model/automne/maisonAutomne/scene.gltf', result =>{
     maisonAutomne = result.scene.children[0];
     maisonAutomne.position.set(22,-0.8, -22);
     maisonAutomne.rotation.z = 100;
@@ -175,7 +175,7 @@ loader.load('model/maisonAutomne/scene.gltf', result =>{
     scene.add(maisonAutomne);
 });
 //Maison de la sorcière
-loader.load('model/maisonPeur/scene.gltf', result =>{
+loader.load('model/automne/maisonPeur/scene.gltf', result =>{
     maisonPeur = result.scene.children[0];
     maisonPeur.position.set(49,0, -18);
     maisonPeur.scale.set(0.01,0.01, 0.02);
@@ -184,7 +184,7 @@ loader.load('model/maisonPeur/scene.gltf', result =>{
 
 
 //Foret derriere les maisons 
-loader.load('model/foret/scene.gltf', result =>{
+loader.load('model/automne/foret/scene.gltf', result =>{
     foret = result.scene.children[0];
     foret.position.set(27,0, -35);
     foret.scale.set(0.07,0.09, 0.09);
@@ -193,7 +193,7 @@ loader.load('model/foret/scene.gltf', result =>{
 });
 
 //Citrouille en haut de la scène
-loader.load('model/citrouille/scene.gltf', result =>{
+loader.load('model/automne/citrouille/scene.gltf', result =>{
     citrouille = result.scene.children[0];
     citrouille.position.set(30,25, -30);
     citrouille.scale.set(0.2,0.2, 0.2);
